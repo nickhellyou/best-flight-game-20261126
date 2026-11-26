@@ -1,0 +1,136 @@
+/* Ridge Runner — HUD styling: dark glass panels, amber lit values, readable
+   at 768 px wide and at full screen. No webfonts: system stack only. */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0c1118;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f2f2f2;
+}
+#game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+#status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+.hud-top-left, .hud-top-right {
+  position: absolute; top: 14px;
+  display: flex; gap: 10px;
+}
+.hud-top-left { left: 14px; }
+.hud-top-right { right: 14px; }
+.hud-top-center {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  text-align: center;
+}
+#hud-compass { border-radius: 4px; box-shadow: 0 0 0 1px rgba(255,255,255,0.25); }
+#hud-warn {
+  margin-top: 6px; font-weight: bold; font-size: 15px; letter-spacing: 1px;
+  color: #ff5a3c; text-shadow: 0 1px 4px #000;
+  opacity: 0;
+}
+#hud-warn.show { opacity: 1; animation: blink 0.7s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0.25; } }
+
+.inst {
+  background: rgba(8, 12, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  padding: 6px 10px 5px;
+  min-width: 74px;
+  backdrop-filter: blur(2px);
+}
+.inst-label { display: block; font-size: 10px; letter-spacing: 2px; color: #9fc3e8; }
+.inst-value { display: block; font-size: 19px; font-weight: bold; color: #ffd23e; font-variant-numeric: tabular-nums; }
+#hud-time.low { color: #ff5a3c; }
+
+#hud-radio {
+  position: absolute; top: 64px; left: 50%; transform: translateX(-50%);
+  width: 520px; max-width: 60vw; text-align: left;
+  font-size: 13px; line-height: 1.5;
+}
+.radio-line {
+  background: rgba(8, 12, 18, 0.55);
+  border-left: 3px solid #35c4ff;
+  border-radius: 3px;
+  padding: 3px 8px; margin-top: 4px;
+  text-shadow: 0 1px 3px #000;
+}
+.radio-who { color: #35c4ff; font-weight: bold; margin-right: 6px; }
+
+#hud-banner {
+  position: absolute; top: 26%; left: 50%; transform: translate(-50%, -50%) scale(0.96);
+  font-size: 34px; font-weight: bold; letter-spacing: 3px; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.85), 0 0 26px rgba(255, 180, 60, 0.55);
+  opacity: 0; transition: opacity 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+#hud-banner.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+.hud-bottom-left {
+  position: absolute; left: 14px; bottom: 14px;
+  background: rgba(8, 12, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px; padding: 10px 12px;
+  backdrop-filter: blur(2px);
+}
+.gauge { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+.gauge-label { width: 34px; font-size: 11px; letter-spacing: 1px; color: #9fc3e8; }
+.gauge-bar { width: 150px; height: 11px; background: rgba(255,255,255,0.16); border-radius: 3px; overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+.gauge-fill.thr { background: #35c4ff; }
+.gauge-fill.fuel { background: #37d67a; }
+.gauge-fill.fuel.low { background: #ff5a3c; }
+.gauge-fill.dmg { background: #ffd23e; }
+.gauge-fill.dmg.bad { background: #ff5a3c; }
+.gauge-val { width: 38px; font-size: 13px; font-weight: bold; font-variant-numeric: tabular-nums; }
+.config-line { margin-top: 8px; display: flex; gap: 14px; }
+.config { font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,0.45); }
+.config.on { color: #37d67a; font-weight: bold; }
+
+.hud-bottom-center { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); text-align: center; }
+#hud-attitude { border-radius: 50%; box-shadow: 0 0 0 2px rgba(255,255,255,0.3), 0 4px 14px rgba(0,0,0,0.5); background: rgba(8,12,18,0.55); }
+.attitude-caption { margin-top: 4px; font-size: 10px; letter-spacing: 2px; color: #9fc3e8; }
+
+.hud-bottom-right { position: absolute; right: 14px; bottom: 14px; text-align: center; }
+#hud-minimap { border-radius: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 4px 14px rgba(0,0,0,0.5); }
+.minimap-caption { margin-top: 4px; font-size: 10px; letter-spacing: 2px; color: #9fc3e8; }
+
+/* Overlay: title, pause and end screens. */
+#overlay {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(6, 10, 16, 0.55);
+  pointer-events: auto;
+}
+#overlay.hidden { display: none; }
+.overlay-card {
+  max-width: 620px; width: 88vw;
+  background: rgba(10, 15, 22, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px; padding: 28px 32px;
+  text-align: center;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.6);
+}
+.overlay-card h1 {
+  margin: 0 0 8px; font-size: 44px; letter-spacing: 4px; color: #ffd23e;
+  text-shadow: 0 2px 14px rgba(255, 180, 60, 0.4);
+}
+.overlay-card p { margin: 0 0 16px; font-size: 15px; line-height: 1.55; color: #dfe8f2; }
+.mission-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 4px; }
+.mission-btn {
+  display: flex; justify-content: space-between; gap: 12px; align-items: center;
+  background: rgba(53, 196, 255, 0.12);
+  border: 1px solid rgba(53, 196, 255, 0.5);
+  color: #fff; border-radius: 8px; padding: 10px 14px;
+  font-size: 14px; cursor: pointer; text-align: left;
+}
+.mission-btn:hover { background: rgba(53, 196, 255, 0.28); }
+.mission-btn-name { font-weight: bold; }
+.mission-btn-goal { color: #9fc3e8; font-size: 12px; }
+.start-btn {
+  background: #e86a2a; color: #fff; border: none; border-radius: 8px;
+  padding: 12px 26px; font-size: 16px; font-weight: bold; letter-spacing: 1px;
+  cursor: pointer; margin: 6px 0;
+}
+.start-btn:hover { background: #f07d3f; }
+.hint-keys { color: #9fc3e8; font-size: 12px; margin-left: 10px; }
